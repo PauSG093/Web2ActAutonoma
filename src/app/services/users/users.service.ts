@@ -7,6 +7,8 @@ import {
   GoogleAuthProvider,
   signOut,
   User,
+  updateEmail,
+
  } from '@angular/fire/auth'
  
 export interface LoginInfo {
@@ -17,7 +19,7 @@ export interface LoginInfo {
 @Injectable({
   providedIn: 'root'
 })
-export class usersService {
+export class UsersService {
  
   constructor(private auth: Auth) { }
  
@@ -40,4 +42,5 @@ export class usersService {
   getCurrentUser() : User | null {
     return this.auth.currentUser;
   }
+
 }

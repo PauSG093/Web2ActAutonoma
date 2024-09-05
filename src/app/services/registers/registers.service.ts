@@ -15,7 +15,6 @@ import { UserCredential } from '@angular/fire/auth';
 export interface Register {
   uid: string;
   email: string;
-  password: boolean;
   nickname: string;
   photoURL: string;
   phoneNumber: string;
@@ -48,17 +47,15 @@ export class RegisterService {
     return addDoc(registersRef, {register});
   }
  
-  updateRegister({uid, email, password, nickname, photoURL, phoneNumber, role}: Register) : Promise<any> {
+  updateRegister({uid, nickname, photoURL, phoneNumber, role}: Register) : Promise<any> {
     const docRef = doc(this.firestore, `registers/${uid}`);
-    return updateDoc(docRef, {uid, email, password, nickname, photoURL, phoneNumber, role});
+    return updateDoc(docRef, {uid, nickname, photoURL, phoneNumber, role});
   }
  
-  deleteRegister(register: Register) : Promise<any> {
-    const docRef = doc(this.firestore, `todos/${register.uid}`);
+  async deleteRegister(register: Register) : Promise<any> {
+    await this.usersService.deleteRegister(register.uid);
+    const docRef = doc(this.firestore, `registers/${register.uid}`);
     return deleteDoc(docRef);
   }
 }
 
-function then(arg0: (response: any) => any) {
-  throw new Error('Function not implemented.');
-}

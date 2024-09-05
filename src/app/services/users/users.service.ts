@@ -7,8 +7,7 @@ import {
   GoogleAuthProvider,
   signOut,
   User,
-  updateEmail,
-
+  deleteUser
  } from '@angular/fire/auth'
  
 export interface LoginInfo {
@@ -43,4 +42,8 @@ export class UsersService {
     return this.auth.currentUser;
   }
 
+  deleteRegister(uid : string) : Promise<any> {
+    let user : User = { uid } as User;
+    return deleteUser(user);
+  }
 }
